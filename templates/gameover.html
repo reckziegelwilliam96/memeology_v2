@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %} Memeology {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="restart-container mt-5 text-center">
+        <form method="GET" action="/instructions" id="restart-btn">
+            <button class="btn btn-primary">Give It Another Go!</button>
+        </form>
+    </div>
+    <div class="container">
+        <div class="game-container">
+            <h3 class="generate-meme-slogan">Generate Your Own Meme!</h3>
+            <div class="container gameover-img" style="padding-left:0px; padding-right:0px">
+                <img src="{{ src }}" alt="Meme Game Image for Generate">
+            </div>
+            <div>
+                <form method="POST" id="caption-btn" class="add-text">
+                    <div class="top">
+                        <input type="text" class="top" name="top-text" placeholder="Enter meme's top text here.">
+                        <br>
+                    </div>
+                    <div class="bottom">
+                        <input type="text" class="bottom" name="bottom-text" placeholder="Enter meme's bottom text here.">
+                        <br>
+                    </div>    
+                    <div class="generate-btn">
+                        <button id="generate-btn" type="submit">Generate Your Own Meme!</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="/static/create.js"></script>
+</div>
+
+{% endblock %}

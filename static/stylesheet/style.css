@@ -1,0 +1,543 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-family: 'PT Sans', sans-serif;
+  background-image: url("/static/images/memeo-background.jpeg");
+  background-size: cover;
+
+}
+
+.container {
+  padding-left: auto;
+  padding-right: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.slogan {
+  display: flex;
+  padding-left: auto;
+  padding-right: auto;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  background-color: rgb(85, 225, 183);
+  width: fit-content;
+  margin: 0 auto;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* ====================== Buttons */
+
+.btn-primary {
+    background-color: rgb(85, 225, 183);
+    border-color: rgb(85, 225, 183);
+}
+
+.btn-primary:hover {
+    background-color: rgb(68, 180, 146);
+    border-color: rgb(68, 180, 146);
+}
+
+.start-btn {
+    background-color: rgb(85, 225, 183);
+    border-color: rgb(85, 225, 183);
+    font-size: 1.5rem;
+    padding: 10px 50px;
+    display: block;
+    margin: 0 auto;
+  }
+
+.gameover-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+button {
+    height: 40px;
+    padding: 0 20px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    font-size: 1.2rem;
+    background-color: rgb(85, 225, 183);
+    color: #fff;
+}
+
+button {
+    height: 40px;
+    padding: 0 20px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    font-size: 1.2rem;
+    background-color: rgb(85, 225, 183);
+    color: #fff;
+}
+
+button:hover {
+    background-color: rgb(68, 180, 146);
+}
+  
+
+/* ====================== Navbar */
+
+.navbar {
+    background-color: rgb(85, 225, 183);
+    height: 70px;
+  }
+  
+.navbar-brand {
+  display: inline-block;
+  font-size: small;
+  margin-left: 10px;
+}
+
+.navbar-brand img {
+  height: 55px;
+  width: 45px;
+  margin-top: 10px;
+  margin-right: -20px;
+  margin-bottom: 5px;
+}
+
+.navbar-nav {
+  margin-left: auto;
+}
+
+.navbar-nav li {
+  margin: 0 10px;
+}
+
+.navbar-nav li a + a {
+  color: white;
+}
+
+.navbar-nav li a:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Position the Memeo icon in the upper right corner */
+.navbar-header {
+  position: relative;
+}
+
+.navbar-header .memeo-icon {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  height: 25px;
+  width: auto;
+}
+
+/* ====================== Instructions */
+
+.container-parent {
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+  }
+
+.container-instructions {
+    background-color: rgb(85, 225, 183);
+    display: center;
+    padding: 40px;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+.container-gameover {
+  background-color: rgb(251,164,92);
+  display: center;
+  padding: 40px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.gameover-header {
+    text-align: center;
+}
+
+.instruction-header {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 0 0 5px 5px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.instruction-header h3 {
+    font-weight: bold;
+    margin: 0;
+    font-size: 28px;
+}
+
+.instruction-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.instruction-list li {
+    margin-bottom: 20px;
+    font-size: 20px;
+    line-height: 1.5;
+}
+
+.instruction-list li img {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+    width: 50px;
+    height: 50px;
+}
+/* ====================== Form */
+.game-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 700px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    padding-top: 0px;
+    flex-direction: column;
+  }
+
+.gameover-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 700px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 40px;
+  flex-direction: column;
+}
+  
+.bottom {
+  display: block;
+  height: 40px;
+  width: 100%;
+  padding: 0 10px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  margin: 1rem 0;
+  font-size: 1.2rem;
+}
+
+.top {
+  display: block;
+  height: 40px;
+  width: 100%;
+  padding: 0 10px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  margin: 2rem 0;
+  font-size: 1.2rem;
+}
+
+#generate-btn {
+  background-color: rgb(85, 225, 183);
+  border-color: rgb(85, 225, 183);
+  font-size: 1.5rem;
+  margin: 2rem auto;
+  height: 80px;
+  display: block;
+  width: 350px;
+}
+
+
+.form-container {
+    margin: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    position: relative;   
+}
+
+.caption-container {
+  margin: 1rem;
+  justify-content: center;
+  align-items: center;
+  position: relative;   
+  display: block;
+}
+
+.add-text input {
+  display: block;
+  padding: auto;
+  margin: auto;
+  margin-bottom: 1rem;
+  background-color: lightgrey;
+  width: 600px;
+  color: black;
+}
+
+
+.add-keyword {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: darkgray;
+}
+
+.add-text {
+  display: block;
+  justify-content: center;
+  align-items: center;
+  color: darkgray;
+}
+
+.keyword {
+    height: 40px;
+    width: 100%;
+    padding: 0 10px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
+.results-container {
+    justify-content: center;
+    align-items: center;
+}
+
+.restart-container {
+    width: 100%;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    padding: 5%;
+}
+
+.generate-meme-slogan {
+  padding-bottom: 5%;
+  color: rgb(85, 225, 183);
+}
+
+.form-control {
+  padding: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-title{
+  display: flex;
+  font-size: 1.7rem;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  width: fit-content;
+  --bs-btn-padding-y: 0rem;
+  background-color: rgb(85, 225, 183, 0.9);
+  color: black;
+  border-radius: 10px;
+}
+.form-btn {
+  margin-top: 3%;
+}
+
+.btn-lg {
+  --bs-btn-padding-y: 0rem;
+}
+
+.bottom-btn {
+  font-size: 1.5rem;
+  padding: 2%;
+  margin-bottom: 5%;
+  height: fit-content;
+
+}
+
+/* ====================== Round Display */
+
+.letter {
+    font-size: 50px;
+    font-weight: bold;
+    margin: 0 5px;
+    transition: color 1s;
+}
+
+.letter.red {
+    color: rgb(251,164,92);
+    font-size: 75px;
+    transition: color 3s;
+}
+
+.letter.green {
+    color: rgb(85, 225, 183);
+    font-size: 75px;
+    transition: color 3s;
+}
+
+
+/* ====================== Alerts */
+.msg.ok {
+    color: white;
+    background-color: green;
+}
+
+.msg.err {
+    color: white;
+    background-color: tomato;
+}
+
+/* ====================== Meme */
+#memeo {
+    width: 100%;
+    height: 100%;
+}
+
+.score-container {
+  padding: 0.5rem;
+}
+
+img {
+    display: flex;
+    margin: auto;
+    width: 600px;
+    height: 600px;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.image-wrapper {
+    width: 600px;
+    height: 600px;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: visible;
+  }
+
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 0;
+}
+
+.tiles-container {
+    display: grid;
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border: 1px solid #000;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.tile {
+    background: #fff;
+    box-sizing: border-box;
+    width: calc(100% / 4);
+    height: calc(100% / 4);
+    overflow: hidden;
+    left: 0;
+    top: 0;
+    position: absolute;
+  }
+
+.hidden {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.visible {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.tile:nth-child(1) {
+  top: 0;
+  left: 0;
+}
+
+.tile:nth-child(2) {
+  top: 0;
+  left: 25%;
+}
+
+.tile:nth-child(3) {
+  top: 0;
+  left: 50%;
+}
+
+.tile:nth-child(4) {
+  top: 0;
+  left: 75%;
+}
+
+.tile:nth-child(5) {
+  top: 25%;
+  left: 0;
+}
+
+.tile:nth-child(6) {
+  top: 25%;
+  left: 25%;
+}
+
+.tile:nth-child(7) {
+  top: 25%;
+  left: 50%;
+}
+
+.tile:nth-child(8) {
+  top: 25%;
+  left: 75%;
+}
+
+.tile:nth-child(9) {
+  top: 50%;
+  left: 0;
+}
+
+.tile:nth-child(10) {
+  top: 50%;
+  left: 25%;
+}
+
+.tile:nth-child(11) {
+  top: 50%;
+  left: 50%;
+}
+
+.tile:nth-child(12) {
+  top: 50%;
+  left: 75%;
+}
+
+.tile:nth-child(13) {
+    top: 75%;
+    left: 0;
+  }
+  
+.tile:nth-child(14) {
+  top: 75%;
+  left: 25%;
+}
+
+.tile:nth-child(15) {
+  top: 75%;
+  left: 50%;
+}
+
+.tile:nth-child(16) {
+  top: 75%;
+  left: 75%;
+}
