@@ -67,9 +67,15 @@ class Images(db.Model):
 
     phrase = db.Column(db.Text,
                     nullable=False)
+
+    hint = db.Column(db.Text,
+                    nullable=True)
     
     image_data = db.Column(db.Text,
-                    nullable=True)
+                    nullable=False)
+
+    template_id = db.Column(db.Integer,
+                            nullable=False)
     
     image_words = db.relationship('ImageWords', backref='database_images')
 
@@ -174,6 +180,29 @@ class GeneratedMemes(db.Model):
                         nullable=True)
 
     generated_by = db.relationship('User', backref='generated_memes')
+
+class Leaderboard(db.Model):
+    """Leaderboard model for tracking user scores."""
+
+    __tablename__ = "leaderboard"
+
+    id = db.Column(db.Integer,
+                    primary_key=True,
+                    unique=True,
+                    nullable=False)
+
+    user_id = db.Column(db.Integer,
+                        db.ForeignKey("users.id"))
+
+    total_score = db.Column(db.Integer,
+                            nullable=False,
+                            default=0)
+
+    games_played = db.Column(db.Integer,
+                             nullable=False,
+                             default=0)
+
+    user = db.relationship('User', backref='leaderboard')
                         
 def connect_db(app):
     """Connect to database."""

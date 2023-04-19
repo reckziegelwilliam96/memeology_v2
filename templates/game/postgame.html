@@ -27,13 +27,28 @@
                         <br>
                     </div>    
                     <div class="generate-btn">
-                        <button id="generate-btn" type="submit">Generate Your Own Meme!</button>
+                        <button id="create-btn" type="submit">Generate Your Own Meme!</button>
                     </div>
                 </form>
             </div>
         </div>
+        <div class="container">
+            <div id="mostRecentGameRecord"></div>
+        </div>
+        <div class="container">
+            <div id="leaderboard"></div>
+        </div>
+        <div class="container">
+            <div id="meme-info"></div>
+        </div>
+        <div class="container">
+            <canvas id="barGraph" width="400" height="400"></canvas>
+        </div>
     </div>
-    <script src="/static/create.js"></script>
+    <!-- Post-Game Handling-->
+    <script src="/static/postgame.js"></script>
+    <!-- Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </div>
 
 {% endblock %}

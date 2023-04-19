@@ -1,45 +1,43 @@
-class MemeoGame{
-    constructor(boardId, imageSrc){
-        
-        this.board = $("#" + boardId);
-        this.round = 0;
-        this.result = '';
-        this.imageSrc = imageSrc;
-        this.addImage(this.imageSrc);
-        this.addTiles(this.round);
-        this.showRound(this.round, this.result);
+class MemeoGame {
+  constructor(boardId, imageSrc) {
+    this.board = $("#" + boardId);
+    this.round = 0;
+    this.result = "";
+    this.imageSrc = imageSrc;
+    this.addImage(this.imageSrc);
+    this.addTiles(this.round);
+    this.showRound(this.round, this.result);
 
-        $(".add-keyword", this.board).on("submit", this.handleSubmit.bind(this));
+    $(".add-keyword", this.board).on("submit", this.handleSubmit.bind(this));
+  }
 
+  renderMessage(message, className) {
+    const container = $(".msg", this.board);
+    container.empty();
+    const msg = $("<p>").text(message);
+    container.addClass(className);
+    container.append(msg);
+  }
+
+  renderPhraseMessage(phrase) {
+    const container = $(".msg", this.board);
+    const phraseMsg = $("<p>").text(`The phrase was: ${phrase}`);
+    container.append(phraseMsg);
+  }
+
+  showMessage(message, result, phrase = null) {
+    if (result === "not-correct") {
+      this.renderMessage(message, "error");
+    } else if (result === "game-over") {
+      this.renderMessage(message, "danger");
+      this.renderPhraseMessage(phrase);
+    } else if (result === "correct") {
+      this.renderMessage(message, "success");
+      this.renderPhraseMessage(phrase);
+    } else {
+      this.renderMessage(message, "danger");
     }
-
-
-    showMessage(message, result, round, phrase=null){
-        const container = $('.msg', this.board)
-        container.empty()
-
-        if (round < 5 && result === "not-correct"){
-            const msg = $('<p>').text(message);
-            container.addClass('error');
-            container.append(msg);
-        } else if (result === "game-over") {
-          const msg = $('<p>').text(message);
-          container.addClass('danger');
-          container.append(msg);
-          if (phrase !== null && phrase !== "") {
-              const phraseMsg = $('<p>').text(`The phrase was: ${phrase}`);
-              container.append(phraseMsg);
-        } else {
-            const msg = $('<p>').text(message);
-            container.addClass('success');
-            container.append(msg);
-            if (phrase !== null && phrase !== ""){ 
-              const phraseMsg = $('<p>').text(`The phrase was: ${phrase}`);
-              container.append(phraseMsg);
-            }
-        }
-    }
-    }
+  }
     
     addImage(src) {
         const container = $(".image-container", this.board);
@@ -50,16 +48,19 @@ class MemeoGame{
 
     removeTiles(round, result) {
       const container = $(".tiles-container", this.board);
-        if (round === 5 || result === "correct") {
-          container.empty();
-        }
+      container.empty();
     }
 
     showRound(round, result) {
-      const letter = $(`#letter-${round}`);
+      const totalLetters = 5;
       if (result === "correct") {
-        letter.addClass("green");
+        for (let i = 1; i <= totalLetters; i++) {
+          const letter = $(`#letter-${i}`);
+          letter.removeClass("red");
+          letter.addClass("green");
+        }
       } else if (result === "not-correct") {
+        const letter = $(`#letter-${round}`);
         letter.addClass("red");
       }
     }
@@ -95,45 +96,44 @@ class MemeoGame{
       }
       
 
-    async handleSubmit(evt){
+      async handleSubmit(evt) {
+        console.log("handleSubmit called");
         evt.preventDefault();
-        const inputField = $('.keyword');
+        const inputField = $(".keyword");
         const keyword = inputField.val();
-        inputField.val('');
-
-        const response = await axios.get('/update-game-meme', { params: { keyword: keyword }});
-        const result = response.data.result;
-        const message = response.data.message;
-
+        inputField.val("");
+    
+        const response = await axios.get("/app/game/update-game-meme", {
+            params: { keyword: keyword },
+        });
+    
+        const { result, message, phrase } = response.data;
+    
         if (result === "not-correct") {
             this.round++;
-            this.showRound(this.round, result);
             this.addTiles(this.round);
-            this.showMessage(message, result, this.round);
+            this.showRound(this.round, result);
+            this.showMessage(message, result, phrase);
+        } else if (result === "correct") {
+            this.round++;
+            this.removeTiles(this.round);
             this.addImage(this.imageSrc);
+            this.showRound(this.round, result);
+            this.showMessage(message, result, phrase);
+            setTimeout(() => {
+              window.location.href = "/game-over";
+          }, 10000);
         } else if (result === "game-over") {
-            const message = response.data.message;
-            const phrase = response.data.phrase;
             this.showRound(this.round, result);
             this.removeTiles(this.round);
             this.addImage(this.imageSrc);
-            this.showMessage(message, result, this.round, phrase);
-            setTimeout(() => {
-              window.location.href = '/game-over';
-            }, 5000);
-        } else {
-            const message = response.data.message;
-            const phrase = response.data.phrase;
-            this.removeTiles(this.round);
-            this.addImage(this.imageSrc);
             this.showRound(this.round, result);
-            this.showMessage(message, result, this.round, phrase);
+            this.showMessage(message, result, phrase);
             setTimeout(() => {
-              window.location.href = '/game-over';
-            }, 5000);
+              window.location.href = "/game-over";
+          }, 10000);
         }
-    };
-
+    }
 }
 
 function shuffle(array) {
