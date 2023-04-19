@@ -5,7 +5,7 @@ from .models import connect_db, db, User
 from .utils import do_login, do_logout
 
 def create_app():
-    app = Flask(__name__, template_folder='templates')
+    app = Flask(__name__, template_folder='../templates', static_folder='../static')
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///memeo-demo'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_ECHO'] = False
@@ -20,7 +20,7 @@ def create_app():
     app.register_blueprint(auth_bp)
 
     from .game import game_bp
-    app.register_blueprint(game_bp)
+    app.register_blueprint(game_bp, url_prefix='/game')
 
     from .api import api_bp
     app.register_blueprint(api_bp)

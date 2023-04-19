@@ -1,12 +1,13 @@
 from flask import session
+from .models import User
 
-def do_login(user, CURR_USER_KEY):
+def do_login(user_id):
     """Log in user."""
 
-    session[CURR_USER_KEY] = user.id
+    session["user_id"] = user_id
 
-def do_logout(CURR_USER_KEY):
+def do_logout():
     """Log out user."""
 
-    if CURR_USER_KEY in session:
-        del session[CURR_USER_KEY]
+    if "user_id" in session:
+        del session["user_id"]

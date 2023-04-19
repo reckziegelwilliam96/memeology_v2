@@ -25,11 +25,23 @@ class User(db.Model):
     email = db.Column(db.Text,
                         nullable=False)
 
+    phone_number = db.Column(db.String(20),
+                             nullable=True)
+
+    bio = db.Column(db.Text,
+                    nullable=True)
+
+    tagline = db.Column(db.Text,
+                        nullable=True)
+
+    avatar = db.Column(db.Text,
+                        nullable=True)
+
     def __repr__(self):
         return f"<User #{self.id}: {self.username}, {self.email}>"
 
     @classmethod
-    def signup(cls, username, email, password):
+    def signup(cls, username, email, password, phone_number, bio, tagline):
         """Sign up user. Hashes password and adds user to system."""
 
         hashed_pwd = bcrypt.generate_password_hash(password).decode('UTF-8')
@@ -37,7 +49,10 @@ class User(db.Model):
         user = User(
             username=username,
             email=email,
-            password=hashed_pwd
+            password=hashed_pwd,
+            phone_number=phone_number,
+            bio=bio,
+            tagline=tagline
         )
 
         db.session.add(user)

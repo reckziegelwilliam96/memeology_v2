@@ -1,8 +1,8 @@
 import os
 from random import choice, randint
 from faker import Faker
-from .__init__ import app
-from .models import db, User, Images, ImageWords, GuessedImages, InProgressImages, GameRecord, GeneratedMemes, Leaderboard
+from __init__ import app
+from models import db, User, Images, ImageWords, GuessedImages, InProgressImages, GameRecord, GeneratedMemes, Leaderboard
 
 fake = Faker()
 
@@ -23,7 +23,10 @@ for _ in range(NUM_USERS):
     username = fake.user_name()
     email = fake.email()
     password = fake.password()
-    user = User.signup(username=username, email=email, password=password)
+    phone_number = fake.phone_number()
+    tagline = fake.sentence()
+    bio = fake.sentence()
+    user = User.signup(username=username, email=email, password=password, phone_number=phone_number, tagline=tagline, bio=bio)
     leaderboard = Leaderboard(user_id=user.id, total_score=randint(0, 100), games_played=randint(0, 50))
     db.session.add(leaderboard)
     

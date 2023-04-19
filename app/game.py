@@ -42,7 +42,7 @@ def render_home_page():
 
     src = session["src"]
     
-    return render_template("/game/welcome.html", src=src)
+    return render_template("/game/game.html", src=src)
 
 @game_bp.route('/game-over')
 def render_game_over_page():

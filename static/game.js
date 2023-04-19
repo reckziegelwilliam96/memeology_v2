@@ -103,7 +103,7 @@ class MemeoGame {
         const keyword = inputField.val();
         inputField.val("");
     
-        const response = await axios.get("/app/game/update-game-meme", {
+        const response = await axios.get("/update-game-meme", {
             params: { keyword: keyword },
         });
     
