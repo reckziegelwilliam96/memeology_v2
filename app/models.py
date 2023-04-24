@@ -184,6 +184,8 @@ class GeneratedMemes(db.Model):
                     primary_key=True,
                     unique=True,
                     nullable=False)
+    
+    url = db.Column(db.String, nullable=False)
 
     image_id = db.Column(db.Integer,
                         db.ForeignKey("database_images.id"))

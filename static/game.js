@@ -1,7 +1,7 @@
 class MemeoGame {
   constructor(boardId, imageSrc) {
     this.board = $("#" + boardId);
-    this.round = 0;
+    this.round = 1;
     this.result = "";
     this.imageSrc = imageSrc;
     this.addImage(this.imageSrc);
@@ -46,7 +46,7 @@ class MemeoGame {
         container.append(image);
     }
 
-    removeTiles(round, result) {
+    removeTiles() {
       const container = $(".tiles-container", this.board);
       container.empty();
     }
@@ -98,6 +98,7 @@ class MemeoGame {
 
       async handleSubmit(evt) {
         console.log("handleSubmit called");
+        console.log(this.round)
         evt.preventDefault();
         const inputField = $(".keyword");
         const keyword = inputField.val();
@@ -107,28 +108,36 @@ class MemeoGame {
             params: { keyword: keyword },
         });
     
+        console.log("Response data: ", response.data);
+
         const { result, message, phrase } = response.data;
     
         if (result === "not-correct") {
+            console.log("handleSubmit - not correct called")
             this.round++;
             this.addTiles(this.round);
             this.showRound(this.round, result);
             this.showMessage(message, result, phrase);
+            console.log(this.round)
         } else if (result === "correct") {
+            console.log("handleSubmit - correct called")
             this.round++;
-            this.removeTiles(this.round);
+            this.removeTiles();
             this.addImage(this.imageSrc);
             this.showRound(this.round, result);
             this.showMessage(message, result, phrase);
+            console.log(this.round)
             setTimeout(() => {
               window.location.href = "/game-over";
           }, 10000);
         } else if (result === "game-over") {
+          console.log("handleSubmit - game over called")
             this.showRound(this.round, result);
-            this.removeTiles(this.round);
+            this.removeTiles();
             this.addImage(this.imageSrc);
             this.showRound(this.round, result);
             this.showMessage(message, result, phrase);
+            console.log(this.round)
             setTimeout(() => {
               window.location.href = "/game-over";
           }, 10000);

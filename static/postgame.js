@@ -4,16 +4,15 @@ class PostGame {
         this.$leaderboardDiv = $("#leaderboard");
         this.$memeInfoDiv = $("#meme-info");
         this.initEventListeners();
-        this.fetchGameRecord();
-        this.fetchAllGameRecords();
+        this.getGameRecord();
+        this.getAllGameRecords();
       }
   
-    initEventListeners() {
-      this.$createBtn.on("click", this.createMeme.bind(this));
-    }
-  
-    createMeme() {
-      $("#caption-btn").on("submit", async function (evt) {
+      initEventListeners() {
+        $("#caption-btn").on("submit", this.createMeme.bind(this));
+      }
+    
+      async createMeme(evt) {
         evt.preventDefault();
         const inputTop = $("input[name=top-text]");
         const inputBottom = $("input[name=bottom-text]");
@@ -23,20 +22,20 @@ class PostGame {
         inputBottom.val("");
         console.log("keyTop: " + keyTop);
         console.log("keyBottom: " + keyBottom);
-  
+    
         try {
-          const response = await axios.post("/api/caption-image", {
+          const response = await axios.post("/caption-image", {
             topText: keyTop,
             bottomText: keyBottom,
           });
-  
-          appendMeme(response.data);
+    
+          this.appendMeme(response.data);
         } catch (error) {
           console.log(error);
         }
-      });
+      }
   
-      function appendMeme(response) {
+      appendMeme(response) {
         const container = $(".gameover-img");
         container.empty();
         console.log(response);
@@ -48,14 +47,29 @@ class PostGame {
   
           favoriteIcon.on("click", function () {
             $(this).toggleClass("active");
-            // Save the favorite status in your API/database here
+            const isFavorite = favoriteIcon.hasClass("active");
+            this.saveMeme(url, isFavorite);
           });
         } else {
           const errorMessage = response.error_message || "Unknown error";
           container.append($("<p>").text(`Error: ${errorMessage}`));
         }
       }
-    }
+
+      async saveMeme(memeUrl, isFavorite) {
+        try {
+          const response = await axios.post('/save-meme', {
+            url: memeUrl,
+            favorite: isFavorite,
+          });
+    
+          // Handle response (e.g., show a success message, update the UI, etc.)
+          console.log(response);
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      }
+
   
     renderLeaderboard(leaderboardData) {
       let leaderboardHTML = "<h2>Leaderboard</h2><ul>";
@@ -66,7 +80,7 @@ class PostGame {
   
       leaderboardHTML += "</ul>";
       this.$leaderboardDiv.html(leaderboardHTML);
-    }
+    };
   
     renderMemeInfo(memeData) {
       const memeInfoHTML = `
@@ -79,8 +93,9 @@ class PostGame {
     }
   
     getGameRecord() {
+      console.log("GET GAME RECORD called")
         axios
-          .get('/app/game/get-game-record')
+          .get('/get-game-record')
           .then((response) => {
             console.log('GameRecord:', response.data);
             this.displayGameRecord(response.data);
@@ -91,6 +106,7 @@ class PostGame {
       }
     
       displayGameRecord(data) {
+        console.log("DISPLAY GAME RECORD called")
         const round = data.round;
         const displayElement = document.getElementById('mostRecentGameRecord');
     
@@ -100,23 +116,37 @@ class PostGame {
           displayElement.textContent = 'No game records found';
         }
       }
-    
+
       getAllGameRecords() {
         axios
-          .get('/app/game/get-all-game-records')
+          .get('/get-all-game-records')
           .then((response) => {
             console.log('Fetched GameRecords:', response.data);
-            this.displayGameRecordChart(response.data);
+            const recordCounts = this.countGameRecords(response.data);
+            this.displayGameRecordChart(recordCounts);
           })
           .catch((error) => {
             console.error('Error:', error);
           });
       }
+      
+      countGameRecords(records) {
+        const counts = {'0': 0, '1': 0, '2': 0, '3': 0, '4': 0, '5': 0};
+      
+        for (const record of records) {
+          const round = record.round;
+          if (counts.hasOwnProperty(round)) {
+            counts[round]++;
+          }
+        }
+      
+        return counts;
+      }
     
       displayGameRecordChart(data) {
         const ctx = document.getElementById('gameRecordChart').getContext('2d');
     
-        const labels = ['0', '1', '2', '3', '4'];
+        const labels = ['0', '1', '2', '3', '4', '5'];
         const counts = labels.map((label) => data[label] || 0);
     
         new Chart(ctx, {
@@ -134,6 +164,7 @@ class PostGame {
             ],
           },
           options: {
+            maintainAspectRatio: false,
             scales: {
               y: {
                 beginAtZero: true,
@@ -142,24 +173,5 @@ class PostGame {
           },
         });
       }
-
-  }
-  
-  // Initialize the MemeGame class
-  const postGame = new PostGame();
-  
-  // Example usage of renderLeaderboard and renderMemeInfo methods
-  const leaderboardData = [
-    { username: "user1", total_score: 100 },
-    { username: "user2", total_score: 80 },
-    { username: "user3", total_score: 60 },
-  ];
-  
-  const memeData = {
-    phrase: "This is a meme phrase",
-    image_url: "https://example.com/meme-image.jpg",
   };
-  
-  postGame.renderLeaderboard(leaderboardData);
-  postGame.renderMemeInfo(memeData);
   

@@ -4,51 +4,76 @@
 
 {% block content %}
 
-<div class="container">
-    <div class="restart-container mt-5 text-center">
-        <form method="GET" action="/instructions" id="restart-btn">
-            <button class="btn btn-primary">Give It Another Go!</button>
-        </form>
-    </div>
+<div>
     <div class="container">
         <div class="game-container">
-            <h3 class="generate-meme-slogan">Generate Your Own Meme!</h3>
-            <div class="container gameover-img" style="padding-left:0px; padding-right:0px">
-                <img src="{{ src }}" alt="Meme Game Image for Generate">
+            <div class="column-container">
+                <div class="container column">
+                    <div class="container gameover-img" style="padding-left:0px; padding-right:0px">
+                        <img src="{{ src }}" alt="Meme Game Image for Generate">
+                    </div>
+                    <div>
+                        <h3 class="generate-meme-slogan">Generate Your Own Meme!</h3>
+                        <form method="POST" id="caption-btn" class="add-text">
+                            <div class="top">
+                                <input type="text" class="top" name="top-text" placeholder="Enter meme's top text here.">
+                                <br>
+                            </div>
+                            <div class="bottom">
+                                <input type="text" class="bottom" name="bottom-text" placeholder="Enter meme's bottom text here.">
+                                <br>
+                            </div>    
+                            <div class="generate-btn">
+                                <button id="create-btn" type="submit">Generate Your Own Meme!</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="container column">
+                    <div id="mostRecentGameRecord"></div>
+                    <div class="chart-container">
+                        <canvas id="gameRecordChart"></canvas>
+                    </div>
+                </div>
+                <div class="container column">
+                    <div id="leaderboard"></div>
+                </div>
+                <div class="container column">
+                    <div id="meme-info"></div>
+                </div>     
             </div>
-            <div>
-                <form method="POST" id="caption-btn" class="add-text">
-                    <div class="top">
-                        <input type="text" class="top" name="top-text" placeholder="Enter meme's top text here.">
-                        <br>
-                    </div>
-                    <div class="bottom">
-                        <input type="text" class="bottom" name="bottom-text" placeholder="Enter meme's bottom text here.">
-                        <br>
-                    </div>    
-                    <div class="generate-btn">
-                        <button id="create-btn" type="submit">Generate Your Own Meme!</button>
-                    </div>
+            <div class="restart-container mt-5 text-center">
+                <form method="GET" action="/instructions" id="restart-btn">
+                    <button class="btn btn-primary">Give It Another Go!</button>
                 </form>
             </div>
         </div>
-        <div class="container">
-            <div id="mostRecentGameRecord"></div>
-        </div>
-        <div class="container">
-            <div id="leaderboard"></div>
-        </div>
-        <div class="container">
-            <div id="meme-info"></div>
-        </div>
-        <div class="container">
-            <canvas id="barGraph" width="400" height="400"></canvas>
-        </div>
     </div>
+    
     <!-- Post-Game Handling-->
     <script src="/static/postgame.js"></script>
     <!-- Chart.js library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        const postGame = new PostGame();
+        
+        // Example usage of renderLeaderboard and renderMemeInfo methods
+        const leaderboardData = [
+          { username: "user1", total_score: 100 },
+          { username: "user2", total_score: 80 },
+          { username: "user3", total_score: 60 },
+        ];
+        
+        const memeData = {
+          phrase: "This is a meme phrase",
+          image_url: "https://example.com/meme-image.jpg",
+        };
+        
+        postGame.renderLeaderboard(leaderboardData);
+        postGame.renderMemeInfo(memeData);
+      </script>
+      
 </div>
 
 {% endblock %}

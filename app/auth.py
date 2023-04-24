@@ -75,5 +75,5 @@ def logout():
 
         return redirect('/')
 
-    form = UserAddForm()
+    form = LoginForm()
     return render_template("users/signup.html", form=form)

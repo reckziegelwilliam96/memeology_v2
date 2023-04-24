@@ -20,7 +20,7 @@ def create_app():
     app.register_blueprint(auth_bp)
 
     from .game import game_bp
-    app.register_blueprint(game_bp, url_prefix='/game')
+    app.register_blueprint(game_bp)
 
     from .api import api_bp
     app.register_blueprint(api_bp)
@@ -31,6 +31,5 @@ app = create_app()
 
 debug = DebugToolbarExtension(app)
 
-# ... (Global functions such as add_user_to_g, do_login, and do_logout)
 
 

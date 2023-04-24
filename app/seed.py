@@ -439,7 +439,7 @@ meme_templates = [
         "id": 101287,
         "name": "Third World Success Kid",
         "hint": "happy african child, african kids dancing",
-        "image_data": "https://imgflip.com/s/meme/Third-World-Sucess-Kid.jpg"
+        "image_data": "https://imgflip.com/s/meme/Third-World-Success-Kid.jpg"
     },
     {
         "id": 235589,
@@ -649,14 +649,16 @@ for meme_template in meme_templates:
         template_id=meme_template["id"]
     )
     db.session.add(image)
+    db.session.flush()
 
     # Generate image words
-    words = meme_template["name"].split(", ")
+    words = meme_template["name"].split(" ")
     for word in words:
         image_word = ImageWords(word=word, image_id=image.id)
         db.session.add(image_word)
 
 db.session.commit()
+
 # Generate guessed images, in progress images, game records, and generated memes
 for _ in range(NUM_GUESSED_IMAGES):
     guessed_image = GuessedImages(
